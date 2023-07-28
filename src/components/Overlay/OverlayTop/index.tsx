@@ -99,12 +99,12 @@ const OverlayTop: FC = () => {
         </StyledButtonWrapper>
         <SlackButton />
       </StyledWrapper>
-      {whatsNew && (
+      {/* {whatsNew && (
         <StyledNewsSection aria-label='News und Updates'>
           <OverlayTitle size='xl' title={whatsNew.title} />
           <OverlayDescription content={whatsNew.description} />
         </StyledNewsSection>
-      )}
+      )} */}
     </StyledTop>
   );
 };
