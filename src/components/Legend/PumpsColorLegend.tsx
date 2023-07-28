@@ -16,22 +16,21 @@ const FlexRowDots = styled(FlexColumn)`
 export const PumpsColorLegend: FC = () => {
   return (
     <FlexRow>
-      <FlexRowDots>
+      {/* <FlexRowDots>
         <PumpsDot color={workingColor.hex} size={13} />
         <PumpLabel>funktionsfähig</PumpLabel>
       </FlexRowDots>
       <FlexRowDots>
         <PumpsDot color={brokenColor.hex} size={13} />
         <PumpLabel>defekt</PumpLabel>
-      </FlexRowDots>
-
-      <FlexRowDots>
+      </FlexRowDots> */}
+      {/* <FlexRowDots>
         <PumpsDot color={lockedColor.hex} size={13} />
         <PumpLabel>verriegelt</PumpLabel>
-      </FlexRowDots>
+      </FlexRowDots> */}
       <FlexRowDots>
         <PumpsDot color={defaultColor.hex} size={13} />
-        <PumpLabel>unbekannt</PumpLabel>
+        <PumpLabel>Standort</PumpLabel>
       </FlexRowDots>
     </FlexRow>
   );

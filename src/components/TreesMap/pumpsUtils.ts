@@ -5,10 +5,12 @@ export interface PumpEventInfoType {
     properties?:
       | {
           id: number;
-          'pump:status'?: string;
-          'addr:full'?: string;
-          'pump:style'?: string;
-          check_date?: string;
+          // 'pump:status'?: string;
+          // 'addr:full'?: string;
+          'name'?: string;
+          'drinkable'?: string;
+          // 'pump:style'?: string;
+          // check_date?: string;
         }
       | undefined;
   };
@@ -16,10 +18,12 @@ export interface PumpEventInfoType {
 
 interface ParsedPumpInfoType {
   id: number;
-  address: string;
-  check_date: string;
-  status: string;
-  style: string;
+  // address: string;
+  name: string;
+  drinkable: string;
+  // check_date: string;
+  // status: string;
+  // style: string;
   x: number;
   y: number;
 }
@@ -30,10 +34,12 @@ export const pumpEventInfoToState = (
   if (info && info.object && info.object.properties) {
     return {
       id: info.object.properties.id,
-      address: info.object.properties['addr:full'] || '',
+      // address: info.object.properties['addr:full'] || '',
+      name: info.object.properties['name'] || '',
       check_date: info.object.properties['check_date'] || '',
+      drinkable: info.object.properties['drinking_water'] || '',
       status: info.object.properties['pump:status'] || '',
-      style: info.object.properties['pump:style'] || '',
+      // style: info.object.properties['pump:style'] || '',
       x: info.x,
       y: info.y,
     };

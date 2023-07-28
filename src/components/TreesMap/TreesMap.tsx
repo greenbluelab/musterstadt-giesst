@@ -93,10 +93,12 @@ interface ViewportType extends Partial<ViewportProps> {
 
 interface PumpPropertiesType {
   id?: number;
-  address: string;
-  status: string;
-  check_date: string;
-  style: string;
+  // address: string;
+  name: string;
+  drinkable: string;
+  // status: string;
+  // check_date: string;
+  // style: string;
 }
 
 interface PumpTooltipType extends PumpPropertiesType {
@@ -590,28 +592,30 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         <MapTooltip
           x={pumpInfo.x}
           y={pumpInfo.y}
-          title='Öffentliche Straßenpumpe'
-          subtitle={pumpInfo.address}
+          title='Öffentlicher Brunnen'
+          // subtitle={pumpInfo.address}
+          subtitle={pumpInfo.name || 'Kein Name'}
           onClickOutside={() => {
             setClickedPump(null);
           }}
           infos={{
-            Status: pumpInfo.status,
-            'Letzter Check': pumpInfo.check_date,
-            Pumpenstil: pumpInfo.style,
-            ...(pumpInfo.id
-              ? {
-                  '': (
-                    <StyledTextLink
-                      href={getOSMEditorURL(pumpInfo.id)}
-                      target='_blank'
-                      rel='noreferrer nofollow'
-                    >
-                      Status in OpenStreetMap aktualisieren
-                    </StyledTextLink>
-                  ),
-                }
-              : {}),
+            // Status: pumpInfo.status,
+            // 'Letzter Check': pumpInfo.check_date,
+            Trinkwasser: pumpInfo.drinkable || 'Unbekannt',
+            // Pumpenstil: pumpInfo.style,  
+            // ...(pumpInfo.id
+            //   ? {
+            //       '': (
+            //         <StyledTextLink
+            //           href={getOSMEditorURL(pumpInfo.id)}
+            //           target='_blank'
+            //           rel='noreferrer nofollow'
+            //         >
+            //           Status in OpenStreetMap aktualisieren
+            //         </StyledTextLink>
+            //       ),
+            //     }
+            //   : {}),
           }}
         />
       )}
