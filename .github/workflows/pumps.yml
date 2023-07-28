@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Pumps data generate step
         id: pumps
-        uses: greenbluelab/musterstadt-giesst-pumpen-harvester@v0.0.2
+        uses: greenbluelab/musterstadt-giesst-pumpen-harvester@v0.0.3
         with:
           outfile-path: 'public/data/pumps.geojson'
       - name: File output
