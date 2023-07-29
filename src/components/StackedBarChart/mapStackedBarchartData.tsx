@@ -118,7 +118,7 @@ const get30DaysData: Get30DaysDataSignature = ({
   return thirtyDays.map((d, i) => {
     const id = getDayString(d);
     const item = waterings[id] || {};
-    const rainingAmount = getRainingsAmount(rainings, i);
+    const rainingAmount = rainings[i];//getRainingsAmount(rainings, i);
     return {
       id,
       date: d,
