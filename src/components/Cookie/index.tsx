@@ -111,7 +111,7 @@ const Cookie: FC = () => {
               fortfährst stimmst du der Nutzung von Cookies zu.{' '}
             </Text>
             <MoreInfoLink
-              href='https://www.technologiestiftung-berlin.de/de/datenschutz/'
+              href={process.env.COOKIE_URL}
               target='_blank'
               rel='noopener noreferrer'
             >

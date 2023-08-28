@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
+const logoGBL = '/images/greenbluelab-logo.svg';
 const logoCitylab = '/images/citylab-logo.svg';
 const logoTSB = '/images/tsb-logo-coloured.svg';
 const logoBerlin = '/images/berlin.svg';
@@ -31,13 +32,18 @@ const TSBLink = styled.a`
   width: fit-content;
 `;
 
+const GBLlogo = styled.img`
+  width: 100px;
+  margin: 10px 0 5px 0;
+`;
+
 const TSBLogo = styled.img`
   width: 110px;
 `;
 
 const CityLABLogo = styled.img`
   width: 150px;
-  margin: 10px 0 5px 0;
+  margin: 10px 0 10px 0;
 `;
 
 const FoerderlogoContainer = styled.div`
@@ -53,13 +59,13 @@ const Credits: FC = () => {
   return (
     <CreditsContainer>
       <a
-        href='https://citylab-berlin.org'
+        href='https://greenbluelab.org/'
         rel='noopener noreferrer'
         target='_blank'
       >
-        <CityLABLogo src={logoCitylab} alt='Logo Citylab' />
+        <GBLlogo src={logoGBL} alt='Logo Green Blue LAB' />
       </a>
-      <Label>Ein Projekt der</Label>
+      <Label>Initiales Projekt von</Label>
       <TSBLink
         href='https://technologiestiftung-berlin.de'
         target='_blank'
@@ -68,8 +74,8 @@ const Credits: FC = () => {
         <TSBLogo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
       </TSBLink>
       <FoerderlogoContainer>
-        <Label>Gefördert durch</Label>
-        <BerlinLogo src={logoBerlin} alt='Logo Berlin' />
+        <Label>Unterstützt durch</Label>
+        <CityLABLogo src={logoCitylab} alt='Logo CityLAB Berlin' />
       </FoerderlogoContainer>
     </CreditsContainer>
   );
