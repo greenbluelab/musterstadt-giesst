@@ -51,7 +51,7 @@ const SidebarSearch: FC = () => {
       <SidebarTitle>Suche & Filter</SidebarTitle>
       <ExpandablePanel title='Datenansicht' isExpanded>
         <SmallParagraph>
-          Benutze die Filter und sieh' welche Bäume bereits von anderen Nutzern adoptiert oder gegossen wurden 
+          Benutze die Filter und erkunde welche Bäume bereits von anderen Nutzern adoptiert oder gegossen wurden 
           und finde heraus, wieviel Niederschlag die Bäume in den letzten 30
           Tagen erreicht hat.
         </SmallParagraph>
