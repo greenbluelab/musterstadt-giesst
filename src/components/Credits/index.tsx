@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const logoGBL = '/images/greenbluelab-logo.svg';
 const logoCitylab = '/images/citylab-logo.svg';
 const logoTSB = '/images/tsb-logo-coloured.svg';
-const logoBerlin = '/images/berlin.svg';
 
 const CreditsContainer = styled.div`
   width: 150px;
@@ -48,11 +47,6 @@ const CityLABLogo = styled.img`
 
 const FoerderlogoContainer = styled.div`
   margin-top: 10px;
-`;
-
-const BerlinLogo = styled.img`
-  width: 120px;
-  margin: 10px 0 5px 0;
 `;
 
 const Credits: FC = () => {

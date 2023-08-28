@@ -6,7 +6,7 @@ import OpenSourceNote from '../../OpenSource';
 import content from '../../../assets/content';
 import ExpandablePanel from '../../ExpandablePanel';
 import SmallParagraph from '../../SmallParagraph';
-import { SlackButton } from '../../SlackButton';
+// import { SlackButton } from '../../SlackButton';
 
 const SidebarAbout: FC = () => {
   const { sidebar } = content;
@@ -20,7 +20,7 @@ const SidebarAbout: FC = () => {
           {idx === 0 && (
             <>
               <br />
-              <SlackButton />
+              {/* <SlackButton /> */}
             </>
           )}
         </ExpandablePanel>

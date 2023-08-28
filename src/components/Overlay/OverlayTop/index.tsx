@@ -12,7 +12,7 @@ import Login from '../../../components/Login/';
 import content from '../../../assets/content';
 import { useActions } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
-import { SlackButton } from '../../SlackButton';
+// import { SlackButton } from '../../SlackButton';
 
 const { whatsNew } = content;
 
@@ -97,7 +97,7 @@ const OverlayTop: FC = () => {
           </ButtonRound>
           <Login width='fit-content' noLogout={true} />
         </StyledButtonWrapper>
-        <SlackButton />
+        {/* <SlackButton /> */}
       </StyledWrapper>
       {/* {whatsNew && (
         <StyledNewsSection aria-label='News und Updates'>
