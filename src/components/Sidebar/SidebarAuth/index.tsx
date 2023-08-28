@@ -257,7 +257,7 @@ export const SidebarAuth = ({
       linkText = (
         <CredentialsSubline
           text={
-            'Dir ist langweilig bis dahin? Dann lies etwas über Gieß den Kiez!'
+            'Dir ist langweilig bis dahin? Dann lies etwas über das Projekt!'
           }
           aText={'Hier klicken'}
           onClick={() => Router.push('/about')}

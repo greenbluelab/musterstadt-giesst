@@ -51,8 +51,8 @@ const SidebarSearch: FC = () => {
       <SidebarTitle>Suche & Filter</SidebarTitle>
       <ExpandablePanel title='Datenansicht' isExpanded>
         <SmallParagraph>
-          Betrachte welche Bäume bereits von anderen Nutzern gegossen wurden.
-          Oder finde heraus, wieviel Niederschlag die Bäume in den letzten 30
+          Benutze die Filter und sieh' welche Bäume bereits von anderen Nutzern adoptiert oder gegossen wurden 
+          und finde heraus, wieviel Niederschlag die Bäume in den letzten 30
           Tagen erreicht hat.
         </SmallParagraph>
         <FilterLinksContainer>
@@ -78,7 +78,7 @@ const SidebarSearch: FC = () => {
       </ExpandablePanel>
       <ExpandablePanel title='Wasserbedarf' isExpanded>
         <SmallParagraph>
-          Finde heraus wie sehr Bäume Wasser benötigen.
+          Finde heraus wie viel Wasser ein Baum benötigt.
         </SmallParagraph>
         <FilterLinksContainer>
           <FilterLink
@@ -106,7 +106,7 @@ const SidebarSearch: FC = () => {
       </ExpandablePanel>
       <ExpandablePanel title='Baumalter' isExpanded>
         <SmallParagraph>
-          Erkunde die Geschichte von Berlins Baumlandschaft
+          Erkunde die Geschichte der Dresdner Bäume
         </SmallParagraph>
         <br />
         <SidebarSearchAge />

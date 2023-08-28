@@ -23,10 +23,10 @@ const OpenSourceNote: FC = () => {
     <OpenSourceContainer>
       <GithubIcon alt='GitHub Mark' src={iconGithub} />
       <SmallParagraph>
-        Giess den Kiez ist ein&nbsp;
+        Musterstadt gießt ist ein&nbsp;
         <a
           target='blank'
-          href='https://github.com/technologiestiftung/giessdenkiez-de'
+          href='https://github.com/greenbluelab/musterstadt-giesst'
         >
           Open Source Projekt!
         </a>
