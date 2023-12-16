@@ -5,9 +5,13 @@ import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
-import { TreesMap } from './TreesMap';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+
+const TreesMap = dynamic(() => import('./TreesMap'), {
+  ssr: false
+});
 
 export const Map: FC<{
   showOverlay: boolean | undefined;

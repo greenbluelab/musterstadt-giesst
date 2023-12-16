@@ -145,7 +145,7 @@ const defaultViewport = {
 };
 
 let hasUnmounted = false;
-export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
+const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   {
     rainGeojson,
     visibleMapLayer,
@@ -624,3 +624,5 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     </>
   );
 });
+
+export default TreesMap;

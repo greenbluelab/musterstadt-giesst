@@ -68,6 +68,7 @@
 		"whatwg-fetch": "3.6.20"
 	},
 	"dependencies": {
+		"@deck.gl/layers": "^8.9.33",
 		"@emotion/react": "^11.11.1",
 		"@emotion/styled": "^11.11.0",
 		"@headlessui/react": "1.7.17",
