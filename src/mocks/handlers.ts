@@ -1,6 +1,7 @@
 // src/mocks/handlers.js
 
-import { rest } from 'msw';
+import { http, HttpResponse, bypass } from 'msw';
+
 interface Payload {
   data?: Record<string, any> | Record<string, any>[] | boolean | string;
   message?: string;
@@ -61,28 +62,21 @@ export function getProperty(
 export const handlers = [
   // Handles a POST /login request
 
-  // rest.post(`${location}/login`, async (_req, res, ctx) => {
+  // http.post(`${location}/login`, async (_req, res, ctx) => {
   //   return res(ctx.status(201));
   // }),
 
-  rest.delete(`${location}/v3/delete/:type`, (req, res, ctx) => {
+  http.delete(`${location}/v3/delete/:type`, async ({params, request}) => {
     // console.log('intercepting DELETE requests');
     const json: Payload = {};
-    let body: Record<string, unknown> = {};
-    if (typeof req.body === 'string') {
-      body = JSON.parse(req.body) as Record<string, unknown>;
-    } else {
-      body = req.body ? req.body : {};
-    }
-    const { type } = req.params;
+    const bodyText = await request.text()
+    let body: Record<string, unknown> = JSON.parse(bodyText) as Record<string, unknown>;
+    const { type } = params;
     if (!type) {
-      return res(ctx.status(400), ctx.json({ message: 'type is undefined' }));
+      return HttpResponse.json({ message: 'type is undefined' }, { status: 400 })
     }
     if (typeof type !== 'string') {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: 'type is not a string' })
-      );
+      return HttpResponse.json({ message: 'type is not a string' }, { status: 400 })
     }
 
     // console.log(body);
@@ -105,25 +99,18 @@ export const handlers = [
         console.log('no default case for delete action defiend');
       }
     }
-    return res(ctx.status(201), ctx.json(json));
+    return HttpResponse.json(json, { status: 201 })
   }),
-  rest.post(`${location}/v3/post/:type`, (req, res, ctx) => {
+  http.post(`${location}/v3/post/:type`, async ({params, request}) => {
     let json: Payload = {};
-    let body: Record<string, unknown> = {};
-    if (typeof req.body === 'string') {
-      body = JSON.parse(req.body) as Record<string, unknown>;
-    } else {
-      body = req.body ? req.body : {};
-    }
-    const { type } = req.params;
+    const bodyText = await request.text()
+    let body: Record<string, unknown> = JSON.parse(bodyText) as Record<string, unknown>;
+    const { type } = params;
     if (!type) {
-      return res(ctx.status(400), ctx.json({ message: 'type is undefined' }));
+      return HttpResponse.json({ message: 'type is undefined' }, { status: 400 })
     }
     if (typeof type !== 'string') {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: 'type is not a string' })
-      );
+      return HttpResponse.json({ message: 'type is not a string' }, { status: 400 })
     }
 
     switch (type) {
@@ -192,32 +179,26 @@ export const handlers = [
         };
       }
     }
-    return res(ctx.status(201), ctx.json(json));
+    return HttpResponse.json(json, { status: 201 })
   }),
 
   // Handles a GET /user request
 
-  rest.get(`${location}/`, async (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ foo: 'bar' }));
+  http.get(`${location}/`, async () => {
+    return HttpResponse.json({ foo: 'bar' }, { status: 200 })
   }),
 
-  rest.get(`${location}/v3/get/:type`, async (req, res, ctx) => {
+  http.get(`${location}/v3/get/:type`, async ({params, request}) => {
     let json: Payload = {};
 
-    const { type } = req.params as Record<string, unknown>;
+    const { type } = params as Record<string, unknown>;
     if (!type) {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: 'url param is missing' })
-      );
+      return HttpResponse.json({ message: 'url param is missing' }, { status: 400 })
     }
     if (typeof type === 'string') {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: 'url param is not a string' })
-      );
+      return HttpResponse.json({ message: 'url param is not a string' }, { status: 400 })
     }
-
+    const url = new URL(request.url)
     switch (type) {
       case 'treeswateredbyuser': {
         json = { data: treesWatered, message: `${type}` };
@@ -225,12 +206,14 @@ export const handlers = [
         break;
       }
       case 'treesbyids': {
-        const originalResponse = (await ctx.fetch(req)) as { data: any };
+        const orig = await fetch(bypass(request))
+        const originalResponse = await orig.json() as { data: any };
         json = { ...originalResponse };
         break;
       }
       case 'byid': {
-        const originalResponse = (await ctx.fetch(req)) as { data: any };
+        const orig = await fetch(bypass(request))
+        const originalResponse = await orig.json() as { data: any };
         json = { ...originalResponse };
         if (process.env.NODE_ENV === 'test') {
           json = { data: [{ id: '_abc' }] };
@@ -242,9 +225,9 @@ export const handlers = [
         break;
       }
       case 'istreeadopted': {
-        const id = getProperty(req.url.searchParams, 'id');
+        const id = url.searchParams.get('id');
         json = {
-          data: adoptedTreeIds.includes(id) ? true : false,
+          data: adoptedTreeIds.includes(""+id) ? true : false,
           message: `${type}`,
         };
         break;
@@ -259,7 +242,7 @@ export const handlers = [
         break;
       }
       case 'lastwatered': {
-        const id = getProperty(req.url.searchParams, 'id');
+        const id = url.searchParams.get('id');
 
         const lastWateredByUser = treesWatered.map(tree => {
           if (tree.tree_id === id) {
@@ -281,11 +264,11 @@ export const handlers = [
       default: {
         // console.log('UNHANDELED request to');
         // console.log(req.url.href);
-        const originalResponse = (await ctx.fetch(req)) as { data?: any };
+        const orig = await fetch(bypass(request))
+        const originalResponse = await orig.json() as { data: any };
         json = {
-          data: [],
-          url: req.url.toString(),
-          message: `case ${type} with url "${req.url.toString()}" in default case. Not yet defined and passed through`,
+          url: request.url.toString(),
+          message: `case ${type} with url "${request.url.toString()}" in default case. Not yet defined and passed through`,
           ...originalResponse,
         };
         // console.log('response is patched and gets passed through', json);
@@ -293,16 +276,17 @@ export const handlers = [
       }
     }
 
-    return res(ctx.status(200), ctx.json(json));
+    return HttpResponse.json(json, { status: 200 })
   }),
 
-  rest.get(
+  http.get(
     'https://tsb-trees-api-user-management.now.sh/api/user',
-    (req, res, ctx) => {
-      const userid = getProperty(req.url.searchParams, 'id');
+    ({request}) => {
+      const url = new URL(request.url)
+      const id = url.searchParams.get('id');
       const json: Payload = {
         data: {
-          user_id: userid,
+          user_id: id,
           email: 'test@gdk.de',
           email_verified: true,
           name: 'gdkboss123',
@@ -310,7 +294,7 @@ export const handlers = [
           username: 'GDK OG',
         },
       };
-      return res(ctx.status(200), ctx.json(json));
+      return HttpResponse.json(json, { status: 200 })
     }
   ),
 ];

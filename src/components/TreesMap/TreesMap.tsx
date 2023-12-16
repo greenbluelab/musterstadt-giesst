@@ -2,13 +2,14 @@ import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { Map as MapboxMap } from 'mapbox-gl';
 import {
-  FlyToInterpolator,
-  GeolocateControl,
   MapRef,
   NavigationControl,
-  StaticMap,
-  ViewportProps,
 } from 'react-map-gl';
+import Map, {
+  GeolocateControl,
+} from 'react-map-gl/maplibre';
+import 'maplibre-gl/dist/maplibre-gl.css'
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
 import DeckGL, { GeoJsonLayer, RGBAColor } from 'deck.gl';
 import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
@@ -36,6 +37,7 @@ import {
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
+import { ViewportProps } from 'react-map-gl';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
@@ -139,7 +141,7 @@ const defaultViewport = {
   bearing: 0,
   transitionDuration: 2000,
   transitionEasing: d3EaseCubic,
-  transitionInterpolator: new FlyToInterpolator(),
+  transitionInterpolator: new MapboxGeocoder(),
 };
 
 let hasUnmounted = false;
@@ -541,7 +543,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         controller
         style={{ overflow: 'hidden' }}
       >
-        <StaticMap
+        <Map
           reuseMaps
           ref={ref}
           mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
@@ -586,7 +588,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
               />
             </ControlWrapper>
           )}
-        </StaticMap>
+        </Map>
       </DeckGL>
       {pumpInfo && pumpInfo.x && pumpInfo.y && (
         <MapTooltip
