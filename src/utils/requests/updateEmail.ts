@@ -1,9 +1,9 @@
 import {
-  createBrowserSupabaseClient,
+  createPagesBrowserClient,
 } from '@supabase/auth-helpers-nextjs';
 import { Database } from '../../common/database';
 
-const supabase = createBrowserSupabaseClient<Database>();
+const supabase = createPagesBrowserClient<Database>();
 
 export const updateEmail = async ({
   oldEmail,
